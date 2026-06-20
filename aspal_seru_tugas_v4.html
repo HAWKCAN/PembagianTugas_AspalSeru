@@ -1,0 +1,231 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);color:var(--color-text-primary)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:4px 0 16px}
+.card{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+.card-head{padding:14px 16px 12px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.member{font-size:15px;font-weight:500;margin-bottom:4px}
+.roles{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px}
+.role{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:500}
+.scope{font-size:12px;color:var(--color-text-secondary)}
+.card-body{padding:12px 16px}
+.feature{margin-bottom:12px;padding-bottom:12px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.feature:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.fname{font-size:13px;font-weight:500;margin-bottom:5px}
+.frow{display:flex;gap:6px;margin-bottom:3px;align-items:flex-start}
+.flabel{font-size:11px;color:var(--color-text-secondary);min-width:76px;flex-shrink:0}
+.fval{font-size:11px;color:var(--color-text-primary);line-height:1.5}
+code{font-family:var(--font-mono);font-size:10px;background:var(--color-background-secondary);padding:1px 4px;border-radius:3px}
+</style>
+
+<div class="grid">
+
+<!-- ANGGOTA 1 -->
+<div class="card">
+  <div class="card-head">
+    <div class="member">Anggota 1 — Auth, Role, User & SOP</div>
+    <div class="roles">
+      <span class="role" style="background:#DBEAFE;color:#1E3A8A">user</span>
+      <span class="role" style="background:#FCE7F3;color:#831843">super admin</span>
+    </div>
+    <div class="scope">Fondasi auth, middleware, manajemen user, kebijakan & setting platform</div>
+  </div>
+  <div class="card-body">
+
+    <div class="feature">
+      <div class="fname">Tabel & model dasar</div>
+      <div class="frow"><span class="flabel">Migration</span><span class="fval"><code>users</code> — id, name, email, passwordHash, phoneNumber, role (enum: user | manager | superAdmin), createdAt</span></div>
+      <div class="frow"><span class="flabel">Migration</span><span class="fval"><code>rentalOwners</code> — id, userId, businessName, businessAddress, taxNumber, verificationStatus, createdAt</span></div>
+      <div class="frow"><span class="flabel">Migration</span><span class="fval"><code>superAdminSettings</code> — id, key, value, description, updatedAt</span></div>
+      <div class="frow"><span class="flabel">Migration</span><span class="fval"><code>platformPolicies</code> — id, title, content, type (enum: sop | tos | faq | other), isActive, createdAt</span></div>
+      <div class="frow"><span class="flabel">Model</span><span class="fval"><code>User</code>, <code>RentalOwner</code>, <code>SuperAdminSetting</code>, <code>PlatformPolicy</code></span></div>
+    </div>
+
+    <div class="feature">
+      <div class="fname">Registrasi & login semua role</div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>AuthController</code> — register(), login(), logout()</span></div>
+      <div class="frow"><span class="flabel">Request</span><span class="fval"><code>RegisterRequest</code>, <code>LoginRequest</code></span></div>
+      <div class="frow"><span class="flabel">Middleware</span><span class="fval"><code>CheckRole</code>, <code>IsSuperAdmin</code>, <code>IsManager</code> — redirect sesuai role</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">auth/register.blade, auth/login.blade</span></div>
+    </div>
+
+    <div class="feature">
+      <div class="fname">Manajemen user (super admin)</div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>SuperAdminUserController</code> — index(), show(), destroy(), verifyManager()</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">superadmin/users/index.blade — tabel semua user, badge role, tombol verify manager</span></div>
+      <div class="frow"><span class="flabel">Route</span><span class="fval">GET /superadmin/users, DELETE /superadmin/users/{id}, PATCH /superadmin/users/{id}/verify</span></div>
+    </div>
+
+    <div class="feature">
+      <div class="fname">SOP, kebijakan & setting platform</div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>PolicyController</code> — index(), store(), update(), destroy()</span></div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>SettingController</code> — index(), update() — termasuk edit nilai platformFeePercent</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">superadmin/policies/index.blade, superadmin/settings/index.blade</span></div>
+    </div>
+
+    <div class="feature">
+      <div class="fname">Notifikasi semua role</div>
+      <div class="frow"><span class="flabel">Class</span><span class="fval"><code>BookingNotification</code>, <code>PaymentNotification</code>, <code>ReturnNotification</code></span></div>
+      <div class="frow"><span class="flabel">Channel</span><span class="fval">database + mail — bell icon di navbar semua role</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">komponen notif dropdown di layout utama</span></div>
+    </div>
+
+    <div class="feature">
+      <div class="fname">Profil & edit akun</div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>ProfileController</code> — show(), update()</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">profile/show.blade, profile/edit.blade</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ANGGOTA 2 -->
+<div class="card">
+  <div class="card-head">
+    <div class="member">Anggota 2 — Katalog, Armada & Ulasan</div>
+    <div class="roles">
+      <span class="role" style="background:#DBEAFE;color:#1E3A8A">user</span>
+      <span class="role" style="background:#FEF9C3;color:#713F12">manager</span>
+    </div>
+    <div class="scope">Tampil kendaraan, pencarian, CRUD armada, upload foto, review & rating</div>
+  </div>
+  <div class="card-body">
+
+    <div class="feature">
+      <div class="fname">Katalog kendaraan (publik)</div>
+      <div class="frow"><span class="flabel">Migration</span><span class="fval"><code>vehicles</code> — id, rentalOwnerId, name, type, plateNumber, pricePerDay, location, status, imageUrl, createdAt</span></div>
+      <div class="frow"><span class="flabel">Model</span><span class="fval"><code>Vehicle</code> — belongsTo RentalOwner; scope: available(), filter(); accessor avgRating()</span></div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>VehicleController</code> — index(), show()</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">vehicles/index.blade — grid + filter tipe/harga, vehicles/show.blade — detail + ulasan</span></div>
+      <div class="frow"><span class="flabel">Route</span><span class="fval">GET /vehicles, GET /vehicles/{id}</span></div>
+    </div>
+
+    <div class="feature">
+      <div class="fname">Manajemen armada (manager)</div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>ManagerVehicleController</code> — index(), create(), store(), edit(), update(), toggleStatus()</span></div>
+      <div class="frow"><span class="flabel">Request</span><span class="fval"><code>VehicleRequest</code> — validasi semua field termasuk file foto</span></div>
+      <div class="frow"><span class="flabel">Storage</span><span class="fval"><code>Storage::disk('public')</code> — upload & resize foto kendaraan</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">manager/vehicles — index, create, edit .blade</span></div>
+      <div class="frow"><span class="flabel">Route</span><span class="fval">resource /manager/vehicles</span></div>
+    </div>
+
+    <div class="feature">
+      <div class="fname">Ulasan & rating</div>
+      <div class="frow"><span class="flabel">Migration</span><span class="fval"><code>reviews</code> — id, userId, vehicleId, rating, comment, createdAt</span></div>
+      <div class="frow"><span class="flabel">Model</span><span class="fval"><code>Review</code> — belongsTo User, Vehicle</span></div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>ReviewController</code> — store() — hanya boleh jika status booking selesai</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">komponen ulasan bintang di vehicles/show.blade</span></div>
+    </div>
+
+    <div class="feature">
+      <div class="fname">Dashboard super admin</div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>SuperAdminDashboardController</code> — index() — total transaksi, total fee terkumpul, grafik pendapatan platform per bulan, tabel manager</span></div>
+      <div class="frow"><span class="flabel">Library</span><span class="fval">Chart.js — grafik fee bulanan</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">superadmin/dashboard.blade — 4 metrik + grafik + tabel disbursement per manager</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ANGGOTA 3 -->
+<div class="card">
+  <div class="card-head">
+    <div class="member">Anggota 3 — Pemesanan, Pembayaran & Laporan</div>
+    <div class="roles">
+      <span class="role" style="background:#DBEAFE;color:#1E3A8A">user</span>
+      <span class="role" style="background:#FEF9C3;color:#713F12">manager</span>
+      <span class="role" style="background:#FCE7F3;color:#831843">super admin</span>
+    </div>
+    <div class="scope">Booking, konfirmasi, pembayaran, pajak 5%, pengembalian, laporan & backup</div>
+  </div>
+  <div class="card-body">
+
+    <div class="feature">
+      <div class="fname">Pemesanan kendaraan</div>
+      <div class="frow"><span class="flabel">Migration</span><span class="fval"><code>bookings</code> — id, userId, vehicleId, startDate, endDate, totalDays, subtotal, platformFeeAmount, totalPrice, status, notes, createdAt</span></div>
+      <div class="frow"><span class="flabel">Model</span><span class="fval"><code>Booking</code> — hasOne Payment, ReturnLog; belongsTo User, Vehicle</span></div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>BookingController</code> — create(), store(), show(), history()</span></div>
+      <div class="frow"><span class="flabel">Logika</span><span class="fval">store() baca <code>platformFeePercent</code> dari settings → <code>platformFeeAmount = subtotal × (feePercent/100)</code> → simpan ke booking</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">bookings/create.blade — form + subtotal, pajak 5%, total; bookings/history.blade</span></div>
+    </div>
+
+    <div class="feature">
+      <div class="fname">Konfirmasi & tolak (manager)</div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>ManagerBookingController</code> — index(), confirm(), reject()</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">manager/bookings/index.blade, manager/bookings/show.blade</span></div>
+    </div>
+
+    <div class="feature">
+      <div class="fname">Pembayaran & pencatatan fee</div>
+      <div class="frow"><span class="flabel">Migration</span><span class="fval"><code>payments</code> — id, bookingId, method, amount, status, proofUrl, paidAt</span></div>
+      <div class="frow"><span class="flabel">Migration</span><span class="fval"><code>platformFees</code> — id, paymentId, feePercent, feeAmount, disbursedStatus, createdAt</span></div>
+      <div class="frow"><span class="flabel">Model</span><span class="fval"><code>Payment</code>, <code>PlatformFee</code></span></div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>PaymentController</code> — create(), store() → otomatis buat record <code>PlatformFee</code> saat payment terverifikasi</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">payments/create.blade — metode, subtotal + potongan 5% + total akhir</span></div>
+    </div>
+
+    <div class="feature">
+      <div class="fname">Pengembalian & denda</div>
+      <div class="frow"><span class="flabel">Migration</span><span class="fval"><code>returnLogs</code> — id, bookingId, returnedAt, lateFee, condition, createdAt</span></div>
+      <div class="frow"><span class="flabel">Model</span><span class="fval"><code>ReturnLog</code> — belongsTo Booking</span></div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>ReturnController</code> — store() — hitung <code>lateFee</code> otomatis per jam dari selisih returnedAt vs endDate</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">manager/returns/create.blade — input waktu kembali + tampil denda otomatis</span></div>
+    </div>
+
+    <div class="feature">
+      <div class="fname">Laporan pendapatan & backup</div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>ManagerReportController</code> — index(), export() — filter harian/bulanan, kolom subtotal / potongan / bersih</span></div>
+      <div class="frow"><span class="flabel">Library</span><span class="fval">Maatwebsite/Excel — export .xlsx; spatie/laravel-backup — backup manual</span></div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>SuperAdminBackupController</code> — index(), run()</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">manager/reports/index.blade — grafik Chart.js + tabel; superadmin/backup/index.blade</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ANGGOTA 4 -->
+<div class="card">
+  <div class="card-head">
+    <div class="member">Anggota 4 — Halaman Statis & Log</div>
+    <div class="roles">
+      <span class="role" style="background:#DBEAFE;color:#1E3A8A">user</span>
+      <span class="role" style="background:#FCE7F3;color:#831843">super admin</span>
+    </div>
+    <div class="scope">Landing page, halaman publik, tampil SOP/kebijakan, log aktivitas sistem</div>
+  </div>
+  <div class="card-body">
+
+    <div class="feature">
+      <div class="fname">Landing page & halaman publik</div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>HomeController</code> — index() — tampil kendaraan unggulan, statistik singkat</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">welcome.blade — hero section, daftar kendaraan populer, cara sewa, CTA daftar</span></div>
+      <div class="frow"><span class="flabel">Route</span><span class="fval">GET /</span></div>
+    </div>
+
+    <div class="feature">
+      <div class="fname">Halaman SOP & kebijakan (publik)</div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>PolicyPublicController</code> — index(), show() — ambil dari <code>platformPolicies</code> yang isActive = true</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">policies/index.blade — daftar SOP/FAQ, policies/show.blade — detail isi kebijakan</span></div>
+      <div class="frow"><span class="flabel">Route</span><span class="fval">GET /policies, GET /policies/{slug}</span></div>
+    </div>
+
+    <div class="feature">
+      <div class="fname">Halaman tentang & kontak</div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>PageController</code> — about(), contact()</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">pages/about.blade, pages/contact.blade — form kontak sederhana (nama, email, pesan)</span></div>
+      <div class="frow"><span class="flabel">Route</span><span class="fval">GET /about, GET /contact, POST /contact</span></div>
+    </div>
+
+    <div class="feature">
+      <div class="fname">Log aktivitas sistem (super admin)</div>
+      <div class="frow"><span class="flabel">Library</span><span class="fval">spatie/laravel-activitylog — log otomatis dari aksi di fitur lain</span></div>
+      <div class="frow"><span class="flabel">Controller</span><span class="fval"><code>SuperAdminLogController</code> — index() — filter by user, tanggal, tipe aksi</span></div>
+      <div class="frow"><span class="flabel">View</span><span class="fval">superadmin/logs/index.blade — tabel waktu, user, aksi, data sebelum & sesudah</span></div>
+      <div class="frow"><span class="flabel">Route</span><span class="fval">GET /superadmin/logs</span></div>
+    </div>
+
+  </div>
+</div>
+
+</div>
